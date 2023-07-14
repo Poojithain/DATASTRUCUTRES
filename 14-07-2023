@@ -1,0 +1,290 @@
+QUUES USING TWO STACKS:
+
+import java.util.*;
+public class QueueUsing2Stacks<T> {
+    private Stack<T> insertionStack;
+    private Stack<T> deletionStack;
+    public QueueUsing2Stacks(){
+        insertionStack = new Stack<>();
+        deletionStack = new Stack<>();
+    }
+    public void enqueue(T item){
+        insertionStack.push(item);
+    }
+    public T dequeue(){
+        if(deletionStack.isEmpty()){
+
+            while(!insertionStack.isEmpty()){
+                deletionStack.push(insertionStack.pop());
+            }
+        }
+        return deletionStack.pop();
+    }
+    public T peek(){
+        if(deletionStack.isEmpty()){
+            while(!insertionStack.isEmpty()){
+                deletionStack.push(insertionStack.pop());
+                
+            }
+        }
+         return deletionStack.peek();
+    }
+    public static void main(String[] args) {
+        QueueUsing2Stacks queue = new QueueUsing2Stacks();
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+        System.out.println(queue.dequeue());
+        System.out.println(queue.dequeue());
+        queue.enqueue(50);
+        System.out.println(queue.dequeue());
+       System.out.println(queue.peek());
+    }
+}
+
+
+
+In the line private Stack<T> enqueueStack;, Stack<T> is a generic class declaration.
+
+The Stack class is a built-in class in Java that represents a stack data structure. It allows you to push elements onto the stack and pop elements from the top of the stack.
+
+The <T> in Stack<T> is a type parameter that indicates that the Stack class is a generic class, meaning it can work with elements of any specified type. The T is just a placeholder for the actual type that will be provided when an instance of the class is created.
+
+For example, if you create a Stack of integers, you would use Stack<Integer>:
+
+import java.util.*;
+
+public class stackusingtwoqueues {
+
+    // Define the data members
+    private Queue<Integer> q1;
+    private Queue<Integer> q2;
+    private int size;
+
+    /**
+     * 
+     */
+    public stackusingtwoqueues() {
+        // Implement the Constructor
+        q1 = new java.util.LinkedList<Integer>();
+        q2 = new java.util.LinkedList<Integer>();
+        size = 0;
+    }
+
+    /*----------------- Public Functions of Stack -----------------*/
+
+    public int getSize() {
+        // Implement the getSize() function
+        return size;
+    }
+
+    public boolean isEmpty() {
+        // Implement the isEmpty() function
+        return size == 0;
+    }
+
+    public void push(int element) {
+        // Implement the push(element) function
+        q1.add(element);
+        size = size + 1;
+    }
+
+    public int pop() {
+        // Implement the pop() function
+        if (q1.isEmpty()) {
+            return -1;
+        }
+        while (q1.size() != 1) {
+            q2.add(q1.remove());
+        }
+        int top = q1.remove();
+
+        while (!q2.isEmpty()) {
+            q1.add(q2.remove());
+        }
+        size = size - 1;
+        return top;
+    }
+
+    public int top() {
+        // Implement the top() function
+        if (q1.isEmpty()) {
+            return -1;
+        }
+        while (q1.size() != 1) {
+            q2.add(q1.remove());
+        }
+        int top = q1.peek();
+        q2.add(q1.remove());
+
+        Queue<Integer> q = q1;
+        q1 = q2;
+        q2 = q;
+        return top;
+    }
+
+    public static void main(String[] args) {
+        stackusingtwoqueues s1 = new stackusingtwoqueues();
+        s1.push(10);
+        s1.push(20);
+        s1.push(30);
+        System.out.println(s1.top());
+        s1.pop();
+        System.out.println(s1.top());
+
+    }
+}
+
+TREES:
+--------
+untill now we have done data structures which are linear if we want our data get stores in heirarchial order we make use of data structure known as 'Trees'
+           A  root node
+          /\
+         /  \
+        B    C     B and C are sibling (child)
+       / \   / \
+      D   E  F  G leaf node
+Binary Search Tree(BST):
+ hear the search operation is opreation
+ ex:14 15 7 9 22 25
+ first element would be the 'ROOT'
+ AND THEN follwoed by all elemnts are checked if they are greater or lesser
+            lesser elements than root element are kept left of the rpoot elment 
+            gretaer elements are kept right side of the root element
+
+
+                   14
+                  /    \
+                 /       \                     //if we inserted the lement 20 then it will come left side of the 22
+               7           15
+             /               \
+            9                 22
+                            / \
+                          20  25
+
+
+
+
+ In a binary search tree (BST), there are three main types of tree traversals: inorder traversal, preorder traversal, and postorder traversal.
+ Each type visits the nodes of the tree in a different order.
+
+ 
+1. Inorder Traversal:
+In an inorder traversal, the nodes are visited in ascending order. For a BST, this means visiting the left subtree first, then the current node, and finally the right subtree.
+
+Example:
+Suppose we have the following BST:
+
+       5
+     /   \
+    3     8
+   / \   / \
+  2   4 7   9
+
+The inorder traversal of this BST will be: 2, 3, 4, 5, 7, 8, 9.
+
+2. Preorder Traversal:
+In a preorder traversal, the nodes are visited in a pre-order manner. This means visiting the current node first, then the left subtree, and finally the right subtree.
+
+Example:
+Using the same BST as above, the preorder traversal will be: 5, 3, 2, 4, 8, 7, 9.
+
+3. Postorder Traversal:
+In a postorder traversal, the nodes are visited in a post-order manner. This means visiting the left subtree first, then the right subtree, and finally the current node.
+
+Example:
+Using the same BST as above, the postorder traversal will be: 2, 4, 3, 7, 9, 8, 5.
+
+write the pre in and post order fir the tree:
+         30
+      /    \
+     25     40
+   /   \    /  \
+ 10    29   37    50
+/ \     |
+5  15  27
+ 
+25 10 5 15 29 27 30 40 50 37---->inorder:5,10,15,25,27,29,30,37,40,50
+
+30 5 15 27 10 29 25 37 50 40---->preorder:30 25 10 5 15 29 27 40 37 50
+
+ 5 15 27 10 29 25 37 50 40 30--->postorder->5,15,10,27,29,25,37,50,40,30
+
+preorder for the given:
+
+ 5 3 8 2 4 7 9
+
+             5          preorder:  5324879
+          /     \
+        3         8
+       / \       /  \
+     2     4    7     9
+
+    package BinarySearch;
+
+
+
+
+class Node{
+	Node left,right;
+	int data;
+	public Node(int data) {
+		this.data=data;
+		left=right=null;
+	}
+}
+public class BinarySearchTree {
+	Node root;
+	public BinarySearchTree() {
+		root=null;
+	}
+	void insert(int data) {
+		root=insertRecursive(root,data);
+		
+	}
+	Node insertRecursive(Node root,int data ) {
+		if(root==null) {
+			root=new Node(data);
+			return root;
+		}
+		if(data<root.data) {
+			root.left=insertRecursive(root.left,data);
+		}
+		else if(data>root.data) {
+			root.right=insertRecursive(root.right,data);
+		}
+		return root;
+	}
+	void preorder(Node root) {
+		if(root!=null) {
+			System.out.print(root.data+" ");
+			preorder(root.left);
+			preorder(root.right);
+		}
+	}
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BinarySearchTree bst=new BinarySearchTree();
+		bst.insert(5);
+		bst.insert(3);
+		bst.insert(8);
+		bst.insert(2);
+		bst.insert(4);
+		bst.insert(7);
+		bst.insert(9);
+		bst.preorder(bst.root);
+		
+		// preorder-5,3,2,4,8,7,9
+		
+		
+
+	}
+
+}
+
+
+
+     
