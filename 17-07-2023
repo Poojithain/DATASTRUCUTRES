@@ -196,11 +196,15 @@ public Node deleteNode(int key,Node root){
       if(root.left==null){
         return root.light;
       }
-      else if(root.right==null)
-    
+      else if(root.right==null){
+        return root.left;
+      }
+      Node tmp=minValueNode(root.right);
+      root.value=tmp.value;
+      root.roght=deleteNode(tmp.value,root.right)
     }
   }
-  
+  return root;
 }
 
 }
